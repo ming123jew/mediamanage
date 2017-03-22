@@ -1,10 +1,15 @@
 <?php
-namespace MediaManage\controller;
+namespace mediamanage\controller;
 
 class Index
 {
-	public function __construct(\think\Request $request){
-		 parent::__construct();
+	public function __construct($request)
+	{
+		$this->request  = $request;
+		$this->param    = $this->request->param();
+		$this->post     = $this->request->post();
+		$this->id       = isset($this->param['id'])?intval($this->param['id']):'';
+		$this->data     = ['pach'=>VIEW_PATH];
 	}
 	/**
 	 * 列表
@@ -34,10 +39,11 @@ class Index
 			}
 		}
 		//print_r($res);
-		//$s = $this->_FormatArr($res);
+		$s = $this->_FormatArr($res);
 		//$this->assign("list",$s);
 		//$this->assign("num_row",$highestRow);
 		//return $this->fetch();
+		return [MEDIAMANAGE_VIEW_PATH.'index/index.php',array_merge($this->data,['num_row'=>$highestRow,'list'=>$s])];
 	}
 	
 	//格式化二维数组，转化成表格输出

@@ -1,8 +1,8 @@
 <?php
-namespace mediamanage\base;
+namespace mediamanage;
 use think\Request;
-use MediaManage\controller\Index;
-
+use mediamanage\controller\Index;
+defined('MEDIAMANAGE_VIEW_PATH') or define('MEDIAMANAGE_VIEW_PATH', __DIR__ . DS.'view'. DS);
 class Base {
 	
 	public function __construct()
@@ -22,10 +22,11 @@ class Base {
 	 * @return mixed
 	 */
 	public function autoload($name){
-	
+		//print_r($this->request);
 		$controller = new Index($this->request);
-	
-		if(strtolower($this->controller) == 'MediaManage' && method_exists($controller,$name)){
+
+		if(strtolower($this->controller) == 'index' && method_exists($controller,$name)){
+			
 			return  call_user_func([$controller, $name]);
 		}
 	
