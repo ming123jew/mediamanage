@@ -1,8 +1,8 @@
 <?php
 namespace mediamanage;
 use think\Request;
-use mediamanage\controller\Index;
 defined('MEDIAMANAGE_VIEW_PATH') or define('MEDIAMANAGE_VIEW_PATH', __DIR__ . DS.'view'. DS);
+defined('MEDIAMANAGE_DIR') or define('MEDIAMANAGE_DIR',__DIR__. DS);
 class Base {
 	
 	public function __construct()
@@ -12,22 +12,24 @@ class Base {
 		$this->module       = $this->request->module();
 		$this->controller   = $this->request->controller();
 		$this->action       = $this->request->action();
-	
+		
 	}
 	
 	/**
 	 * 加载控制器方法
 	 * @access public
-	 * @param  string  $name 方法名
+	 * @param  string $controller 控制器
+	 * @param  string $action 方法名
 	 * @return mixed
 	 */
-	public function autoload($name){
-		//print_r($this->request);
-		$controller = new Index($this->request);
+	public function autoload($controller,$action){
+		$className = '\\mediamanage\\controller\\'.$controller;
+		
+		$controller = new $className($this->request);
 
-		if(strtolower($this->controller) == 'index' && method_exists($controller,$name)){
+		if(method_exists($controller,$action)){
 			
-			return  call_user_func([$controller, $name]);
+			return  call_user_func([$controller, $action]);
 		}
 	
 		return false;

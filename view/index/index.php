@@ -1,8 +1,8 @@
-
+<?php require $pach . 'public/top.php';?>
 <div class="wrap js-check-wrap">
     <ul class="nav nav-tabs">
-        <li  class="active"><a href="{:url('admin/index')}">用户管理</a></li>
-        <li><a href="{:url('admin/add')}">增加用户</a></li>
+        <li  class="active"><a href="#">列表</a></li>
+       
     </ul>
 	<div class="cf well form-search" style="height: 68px;">
 	    <div class="fl ">
@@ -23,3 +23,4 @@
        
     </div>
 </div>
+<?php require $pach . 'public/foot.php';?>
